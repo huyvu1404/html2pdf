@@ -11,7 +11,7 @@ class HTMLBase64Request(BaseModel):
     file_name: str
     html_base64: str
 
-@app.post("/convert-base64")
+@app.post("/html-to-pdf")
 async def convert_base64_to_pdf(request: HTMLBase64Request):
     try:
         html_content = base64.b64decode(request.html_base64).decode('utf-8')
