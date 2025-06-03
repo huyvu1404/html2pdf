@@ -24,7 +24,15 @@ async def convert_base64_to_pdf(request: HTMLBase64Request):
     with open(temp_html, "w", encoding="utf-8") as f:
         f.write(html_content)
 
+    options = {
+        'print-media-type': '',
+        'page-size': 'A4',
+        'encoding': "UTF-8",
+        'margin-top': '15mm',
+        'margin-bottom': '15mm', 
+    }
+    
     config = pdfkit.configuration(wkhtmltopdf="/usr/bin/wkhtmltopdf")  
-    pdfkit.from_file(temp_html, temp_pdf, configuration=config)
+    pdfkit.from_file(temp_html, temp_pdf, configuration=config, options=options)
 
     return FileResponse(temp_pdf, media_type='application/pdf', filename=request.file_name)
